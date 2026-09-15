@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "xtremeutilities",
+  "version": "${version}",
+  "name": "XtremeUtilities",
+  "description": "utility mod for Minecraft 26.3, that includes: toggle sprint, fullbright, a dark reloading screen and the fadeless reloading animation.",
+  "authors": [
+    "no1qq"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/xtremeutilities/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.xtremeutilities.XtremeUtilitiesClient"
+    ]
+  },
+  "mixins": [
+    "xtremeutilities.client.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "minecraft": "26.3",
+    "java": ">=25"
+  }
+}

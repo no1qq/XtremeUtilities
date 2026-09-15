@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.xtremeutilities.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "DarkLoadingScreenMixin",
+    "FadelessReloadMixin",
+    "FullbrightMixin",
+    "TitleScreenMixin",
+    "ToggleSprintMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
