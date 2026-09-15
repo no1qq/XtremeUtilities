@@ -15,18 +15,13 @@ public abstract class ToggleSprintMixin {
         return false;
     }
 
-    @Shadow
-    public abstract boolean isSprinting();
-
-    @Shadow
-    public abstract void setSprinting(boolean sprinting);
-
     @Inject(method = "aiStep", at = @At("TAIL"))
     private void handleToggleSprint(CallbackInfo ci) {
         ModConfig config = ModConfig.getInstance();
         if (config.stickySprintActive && config.sprintMode == ModConfig.SprintMode.TOGGLE) {
-            if (!this.isSprinting() && this.canStartSprinting()) {
-                this.setSprinting(true);
+            LocalPlayer player = (LocalPlayer) (Object) this;
+            if (!player.isSprinting() && this.canStartSprinting()) {
+                player.setSprinting(true);
             }
         }
     }
