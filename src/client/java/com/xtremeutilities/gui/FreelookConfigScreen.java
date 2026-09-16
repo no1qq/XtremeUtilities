@@ -93,6 +93,16 @@ public class FreelookConfigScreen extends Screen {
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
         boolean handled = super.mouseClicked(event, doubleClick);
+        if (!(this.getFocused() instanceof AbstractSliderButton)) {
+            this.setFocused(null);
+            this.clearFocus();
+        }
+        return handled;
+    }
+
+    @Override
+    public boolean mouseReleased(MouseButtonEvent event) {
+        boolean handled = super.mouseReleased(event);
         this.setFocused(null);
         this.clearFocus();
         return handled;

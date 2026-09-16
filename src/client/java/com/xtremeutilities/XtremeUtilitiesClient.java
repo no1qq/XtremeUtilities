@@ -9,8 +9,13 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 
 public class XtremeUtilitiesClient implements ClientModInitializer {
+    public static final KeyMapping.Category CATEGORY = KeyMapping.Category.register(
+            Identifier.fromNamespaceAndPath("xtremeutilities", "general")
+    );
+
     public static KeyMapping fullbrightKey;
     public static KeyMapping freelookKey;
     public static KeyMapping noHurtCamKey;
@@ -23,21 +28,21 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
                 "key.xtremeutilities.fullbright",
                 InputConstants.Type.KEYBOARD,
                 InputConstants.KEY_B,
-                KeyMapping.Category.MISC
+                CATEGORY
         ));
 
         freelookKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.xtremeutilities.freelook",
                 InputConstants.Type.KEYBOARD,
                 InputConstants.KEY_LCONTROL,
-                KeyMapping.Category.MISC
+                CATEGORY
         ));
 
         noHurtCamKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.xtremeutilities.nohurtcam",
                 InputConstants.Type.KEYBOARD,
                 InputConstants.UNKNOWN.getValue(),
-                KeyMapping.Category.MISC
+                CATEGORY
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
