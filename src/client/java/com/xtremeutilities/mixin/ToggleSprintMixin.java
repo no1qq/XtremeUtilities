@@ -1,6 +1,7 @@
 package com.xtremeutilities.mixin;
 
 import com.xtremeutilities.config.ModConfig;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,10 +19,24 @@ public abstract class ToggleSprintMixin {
     @Inject(method = "aiStep", at = @At("TAIL"))
     private void handleToggleSprint(CallbackInfo ci) {
         ModConfig config = ModConfig.getInstance();
-        if (config.stickySprintActive && config.sprintMode == ModConfig.SprintMode.TOGGLE) {
-            LocalPlayer player = (LocalPlayer) (Object) this;
+        LocalPlayer player = (LocalPlayer) (Object) this;
+
+        boolean shouldSprint = false;
+        if (config.stickySprintActive) {
+            shouldSprint = true;
+        } else if (config.sprintMode == ModConfig.SprintMode.TOGGLE) {
+            shouldSprint = config.sprintToggled || Minecraft.getInstance().options.keySprint.isDown();
+        } else if (config.sprintMode == ModConfig.SprintMode.HOLD) {
+            shouldSprint = Minecraft.getInstance().options.keySprint.isDown();
+        }
+
+        if (shouldSprint) {
             if (!player.isSprinting() && this.canStartSprinting()) {
                 player.setSprinting(true);
+            }
+        } else {
+            if (player.isSprinting() && !player.isSwimming()) {
+                player.setSprinting(false);
             }
         }
     }

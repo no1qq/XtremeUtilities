@@ -11,7 +11,6 @@ import net.minecraft.network.chat.Component;
 
 public class XtremeUtilitiesClient implements ClientModInitializer {
     public static KeyMapping fullbrightKey;
-    public static KeyMapping sprintToggleKey;
 
     @Override
     public void onInitializeClient() {
@@ -22,13 +21,6 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
                 InputConstants.Type.KEYBOARD,
                 InputConstants.KEY_B,
                 KeyMapping.Category.MISC
-        ));
-
-        sprintToggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
-                "key.xtremeutilities.sprint_toggle",
-                InputConstants.Type.KEYBOARD,
-                InputConstants.KEY_V,
-                KeyMapping.Category.MOVEMENT
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -42,11 +34,21 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
                 }
             }
 
-            while (sprintToggleKey.consumeClick()) {
-                config.stickySprintActive = !config.stickySprintActive;
-                ConfigManager.save();
-                if (client.player != null) {
-                    client.player.sendOverlayMessage(Component.literal("Sticky Sprint: " + (config.stickySprintActive ? "ON" : "OFF")));
+            if (client.player != null && client.gui.screen() == null) {
+                if (config.sprintMode == ModConfig.SprintMode.TOGGLE) {
+                    while (client.options.keySprint.consumeClick()) {
+                        if (config.stickySprintActive) {
+                            config.stickySprintActive = false;
+                            config.sprintToggled = false;
+                        } else {
+                            config.sprintToggled = !config.sprintToggled;
+                        }
+                        ConfigManager.save();
+                        if (!config.sprintToggled && !client.player.isSwimming()) {
+                            client.player.setSprinting(false);
+                        }
+                        client.player.sendOverlayMessage(Component.literal("Toggle Sprint: " + (config.sprintToggled ? "ON" : "OFF")));
+                    }
                 }
             }
         });

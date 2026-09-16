@@ -5,7 +5,8 @@ public class ModConfig {
 
     public boolean fullbright = false;
     public SprintMode sprintMode = SprintMode.TOGGLE;
-    public boolean stickySprintActive = true;
+    public boolean stickySprintActive = false;
+    public boolean sprintToggled = true;
     public boolean darkLoadingScreen = true;
     public boolean fadelessReload = true;
 

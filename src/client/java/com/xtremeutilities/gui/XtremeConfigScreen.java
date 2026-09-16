@@ -5,6 +5,7 @@ import com.xtremeutilities.config.ModConfig;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
@@ -77,6 +78,14 @@ public class XtremeConfigScreen extends Screen {
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         graphics.centeredText(this.font, this.title, this.width / 2, 20, 0xFFFFFF);
+    }
+
+    @Override
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        boolean handled = super.mouseClicked(event, doubleClick);
+        this.setFocused(null);
+        this.clearFocus();
+        return handled;
     }
 
     @Override
