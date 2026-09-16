@@ -8,8 +8,8 @@
 </div>
 
 
-a lightweight client-side utility mod for Minecraft 26.3 with fullbright, toggle sprint, fadeless reload animations and dark loading screen.
+a lightweight client-side utility mod for Minecraft 26.3 with fullbright, toggle sprint, freelook, nohurtcam, fadeless reload animations and dark loading screen.
 
 ### requirements
 - Fabric Loader 0.19.0+
-- Fabric API 0.160.5+26.3
+- Fabric API 0.160.6+26.3
