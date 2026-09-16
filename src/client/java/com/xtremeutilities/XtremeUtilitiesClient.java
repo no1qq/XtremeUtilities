@@ -37,12 +37,7 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
             if (client.player != null && client.gui.screen() == null) {
                 if (config.sprintMode == ModConfig.SprintMode.TOGGLE) {
                     while (client.options.keySprint.consumeClick()) {
-                        if (config.stickySprintActive) {
-                            config.stickySprintActive = false;
-                            config.sprintToggled = false;
-                        } else {
-                            config.sprintToggled = !config.sprintToggled;
-                        }
+                        config.sprintToggled = !config.sprintToggled;
                         ConfigManager.save();
                         if (!config.sprintToggled && !client.player.isSwimming()) {
                             client.player.setSprinting(false);

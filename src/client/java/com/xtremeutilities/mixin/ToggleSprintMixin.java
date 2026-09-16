@@ -22,10 +22,8 @@ public abstract class ToggleSprintMixin {
         LocalPlayer player = (LocalPlayer) (Object) this;
 
         boolean shouldSprint = false;
-        if (config.stickySprintActive) {
-            shouldSprint = true;
-        } else if (config.sprintMode == ModConfig.SprintMode.TOGGLE) {
-            shouldSprint = config.sprintToggled || Minecraft.getInstance().options.keySprint.isDown();
+        if (config.sprintMode == ModConfig.SprintMode.TOGGLE) {
+            shouldSprint = config.sprintToggled;
         } else if (config.sprintMode == ModConfig.SprintMode.HOLD) {
             shouldSprint = Minecraft.getInstance().options.keySprint.isDown();
         }

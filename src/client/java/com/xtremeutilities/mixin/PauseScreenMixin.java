@@ -21,7 +21,7 @@ public abstract class PauseScreenMixin extends Screen {
         int buttonWidth = 98;
         int buttonHeight = 20;
         int x = this.width - buttonWidth - 4;
-        int y = this.height - buttonHeight - 14;
+        int y = this.height - buttonHeight - 4;
 
         this.addRenderableWidget(Button.builder(
                 Component.literal("XtremeUtilities"),

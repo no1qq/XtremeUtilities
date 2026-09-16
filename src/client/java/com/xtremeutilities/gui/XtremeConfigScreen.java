@@ -42,22 +42,13 @@ public class XtremeConfigScreen extends Screen {
         ).bounds(centerX - 100, startY + 24, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
-                Component.literal("Sticky Sprint: " + (config.stickySprintActive ? "ON" : "OFF")),
-                button -> {
-                    config.stickySprintActive = !config.stickySprintActive;
-                    button.setMessage(Component.literal("Sticky Sprint: " + (config.stickySprintActive ? "ON" : "OFF")));
-                    ConfigManager.save();
-                }
-        ).bounds(centerX - 100, startY + 48, 200, 20).build());
-
-        this.addRenderableWidget(Button.builder(
                 Component.literal("Dark Loading Screen: " + (config.darkLoadingScreen ? "ON" : "OFF")),
                 button -> {
                     config.darkLoadingScreen = !config.darkLoadingScreen;
                     button.setMessage(Component.literal("Dark Loading Screen: " + (config.darkLoadingScreen ? "ON" : "OFF")));
                     ConfigManager.save();
                 }
-        ).bounds(centerX - 100, startY + 72, 200, 20).build());
+        ).bounds(centerX - 100, startY + 48, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
                 Component.literal("Fadeless Reloading: " + (config.fadelessReload ? "ON" : "OFF")),
@@ -66,12 +57,12 @@ public class XtremeConfigScreen extends Screen {
                     button.setMessage(Component.literal("Fadeless Reloading: " + (config.fadelessReload ? "ON" : "OFF")));
                     ConfigManager.save();
                 }
-        ).bounds(centerX - 100, startY + 96, 200, 20).build());
+        ).bounds(centerX - 100, startY + 72, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
                 CommonComponents.GUI_DONE,
                 button -> onClose()
-        ).bounds(centerX - 100, startY + 128, 200, 20).build());
+        ).bounds(centerX - 100, startY + 104, 200, 20).build());
     }
 
     @Override
