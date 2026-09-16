@@ -26,6 +26,10 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             ModConfig config = ModConfig.getInstance();
 
+            if (client.options != null && client.options.toggleSprint().get()) {
+                client.options.toggleSprint().set(false);
+            }
+
             while (fullbrightKey.consumeClick()) {
                 config.fullbright = !config.fullbright;
                 ConfigManager.save();
@@ -39,8 +43,11 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
                     while (client.options.keySprint.consumeClick()) {
                         config.sprintToggled = !config.sprintToggled;
                         ConfigManager.save();
-                        if (!config.sprintToggled && !client.player.isSwimming()) {
-                            client.player.setSprinting(false);
+                        if (!config.sprintToggled) {
+                            client.options.keySprint.setDown(false);
+                            if (!client.player.isSwimming()) {
+                                client.player.setSprinting(false);
+                            }
                         }
                         client.player.sendOverlayMessage(Component.literal("Toggle Sprint: " + (config.sprintToggled ? "ON" : "OFF")));
                     }
