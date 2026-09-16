@@ -3,76 +3,85 @@ package com.xtremeutilities.gui;
 import com.xtremeutilities.config.ConfigManager;
 import com.xtremeutilities.config.ModConfig;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
-public class XtremeConfigScreen extends Screen {
+public class FreelookConfigScreen extends Screen {
     private final Screen parent;
 
-    public XtremeConfigScreen(Screen parent) {
-        super(Component.literal("XtremeUtilities Configuration"));
+    public FreelookConfigScreen(Screen parent) {
+        super(Component.literal("Freelook Settings"));
         this.parent = parent;
     }
 
     @Override
     protected void init() {
         int centerX = this.width / 2;
-        int startY = Math.max(32, this.height / 2 - 88);
+        int startY = Math.max(32, this.height / 2 - 76);
         ModConfig config = ModConfig.getInstance();
 
         this.addRenderableWidget(Button.builder(
-                Component.literal("Fullbright: " + (config.fullbright ? "ON" : "OFF")),
+                Component.literal("Freelook: " + (config.freelookEnabled ? "ON" : "OFF")),
                 button -> {
-                    config.fullbright = !config.fullbright;
-                    button.setMessage(Component.literal("Fullbright: " + (config.fullbright ? "ON" : "OFF")));
+                    config.freelookEnabled = !config.freelookEnabled;
+                    button.setMessage(Component.literal("Freelook: " + (config.freelookEnabled ? "ON" : "OFF")));
                     ConfigManager.save();
                 }
         ).bounds(centerX - 100, startY, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
-                Component.literal("Sprint Mode: " + config.sprintMode.name()),
+                Component.literal("Mode: " + config.freelookMode.name()),
                 button -> {
-                    config.sprintMode = config.sprintMode == ModConfig.SprintMode.TOGGLE ? ModConfig.SprintMode.HOLD : ModConfig.SprintMode.TOGGLE;
-                    button.setMessage(Component.literal("Sprint Mode: " + config.sprintMode.name()));
+                    config.freelookMode = config.freelookMode == ModConfig.FreelookMode.HOLD ? ModConfig.FreelookMode.TOGGLE : ModConfig.FreelookMode.HOLD;
+                    button.setMessage(Component.literal("Mode: " + config.freelookMode.name()));
                     ConfigManager.save();
                 }
         ).bounds(centerX - 100, startY + 24, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
-                Component.literal("Dark Loading Screen: " + (config.darkLoadingScreen ? "ON" : "OFF")),
+                Component.literal("Invert X: " + (config.freelookInvertX ? "ON" : "OFF")),
                 button -> {
-                    config.darkLoadingScreen = !config.darkLoadingScreen;
-                    button.setMessage(Component.literal("Dark Loading Screen: " + (config.darkLoadingScreen ? "ON" : "OFF")));
+                    config.freelookInvertX = !config.freelookInvertX;
+                    button.setMessage(Component.literal("Invert X: " + (config.freelookInvertX ? "ON" : "OFF")));
                     ConfigManager.save();
                 }
         ).bounds(centerX - 100, startY + 48, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
-                Component.literal("Fadeless Reloading: " + (config.fadelessReload ? "ON" : "OFF")),
+                Component.literal("Invert Y: " + (config.freelookInvertY ? "ON" : "OFF")),
                 button -> {
-                    config.fadelessReload = !config.fadelessReload;
-                    button.setMessage(Component.literal("Fadeless Reloading: " + (config.fadelessReload ? "ON" : "OFF")));
+                    config.freelookInvertY = !config.freelookInvertY;
+                    button.setMessage(Component.literal("Invert Y: " + (config.freelookInvertY ? "ON" : "OFF")));
                     ConfigManager.save();
                 }
         ).bounds(centerX - 100, startY + 72, 200, 20).build());
 
-        this.addRenderableWidget(Button.builder(
-                Component.literal("Freelook Settings..."),
-                button -> this.minecraft.setScreenAndShow(new FreelookConfigScreen(this))
-        ).bounds(centerX - 100, startY + 96, 200, 20).build());
+        double initialSliderValue = Math.max(0.0, Math.min(1.0, (config.freelookSpeed - 0.2) / 1.8));
+        this.addRenderableWidget(new AbstractSliderButton(centerX - 100, startY + 96, 200, 20, Component.empty(), initialSliderValue) {
+            {
+                this.updateMessage();
+            }
 
-        this.addRenderableWidget(Button.builder(
-                Component.literal("NoHurtCam Settings..."),
-                button -> this.minecraft.setScreenAndShow(new NoHurtCamConfigScreen(this))
-        ).bounds(centerX - 100, startY + 120, 200, 20).build());
+            @Override
+            protected void updateMessage() {
+                this.setMessage(Component.literal("Freelook Speed: " + (int) Math.round(config.freelookSpeed * 100) + "%"));
+            }
+
+            @Override
+            protected void applyValue() {
+                config.freelookSpeed = 0.2 + this.value * 1.8;
+                ConfigManager.save();
+            }
+        });
 
         this.addRenderableWidget(Button.builder(
                 CommonComponents.GUI_DONE,
                 button -> onClose()
-        ).bounds(centerX - 100, startY + 152, 200, 20).build());
+        ).bounds(centerX - 100, startY + 128, 200, 20).build());
     }
 
     @Override

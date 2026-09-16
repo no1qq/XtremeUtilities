@@ -9,9 +9,23 @@ public class ModConfig {
     public boolean darkLoadingScreen = true;
     public boolean fadelessReload = true;
 
+    public boolean freelookEnabled = true;
+    public FreelookMode freelookMode = FreelookMode.HOLD;
+    public double freelookSpeed = 1.0;
+    public boolean freelookInvertX = false;
+    public boolean freelookInvertY = false;
+
+    public boolean noHurtCamEnabled = true;
+    public double hurtCamShake = 0.0;
+
     public enum SprintMode {
         TOGGLE,
         HOLD
+    }
+
+    public enum FreelookMode {
+        HOLD,
+        TOGGLE
     }
 
     public static ModConfig getInstance() {

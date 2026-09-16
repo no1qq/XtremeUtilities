@@ -3,6 +3,7 @@ package com.xtremeutilities;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.xtremeutilities.config.ConfigManager;
 import com.xtremeutilities.config.ModConfig;
+import com.xtremeutilities.freelook.FreelookManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
@@ -11,6 +12,8 @@ import net.minecraft.network.chat.Component;
 
 public class XtremeUtilitiesClient implements ClientModInitializer {
     public static KeyMapping fullbrightKey;
+    public static KeyMapping freelookKey;
+    public static KeyMapping noHurtCamKey;
 
     @Override
     public void onInitializeClient() {
@@ -20,6 +23,20 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
                 "key.xtremeutilities.fullbright",
                 InputConstants.Type.KEYBOARD,
                 InputConstants.KEY_B,
+                KeyMapping.Category.MISC
+        ));
+
+        freelookKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+                "key.xtremeutilities.freelook",
+                InputConstants.Type.KEYBOARD,
+                InputConstants.KEY_LCONTROL,
+                KeyMapping.Category.MISC
+        ));
+
+        noHurtCamKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+                "key.xtremeutilities.nohurtcam",
+                InputConstants.Type.KEYBOARD,
+                InputConstants.UNKNOWN.getValue(),
                 KeyMapping.Category.MISC
         ));
 
@@ -38,7 +55,43 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
                 }
             }
 
-            if (client.player != null && client.gui.screen() == null) {
+            FreelookManager freelookManager = FreelookManager.getInstance();
+
+            if (client.player == null || client.gui.screen() != null || client.player.isDeadOrDying()) {
+                if (freelookManager.isFreelookActive()) {
+                    freelookManager.stopFreelook();
+                }
+            } else {
+                if (config.freelookEnabled) {
+                    if (config.freelookMode == ModConfig.FreelookMode.HOLD) {
+                        if (freelookKey.isDown()) {
+                            if (!freelookManager.isFreelookActive()) {
+                                freelookManager.startFreelook();
+                            }
+                        } else {
+                            if (freelookManager.isFreelookActive()) {
+                                freelookManager.stopFreelook();
+                            }
+                        }
+                    } else if (config.freelookMode == ModConfig.FreelookMode.TOGGLE) {
+                        while (freelookKey.consumeClick()) {
+                            if (freelookManager.isFreelookActive()) {
+                                freelookManager.stopFreelook();
+                            } else {
+                                freelookManager.startFreelook();
+                            }
+                        }
+                    }
+                } else if (freelookManager.isFreelookActive()) {
+                    freelookManager.stopFreelook();
+                }
+
+                while (noHurtCamKey.consumeClick()) {
+                    config.noHurtCamEnabled = !config.noHurtCamEnabled;
+                    ConfigManager.save();
+                    client.player.sendOverlayMessage(Component.literal("NoHurtCam: " + (config.noHurtCamEnabled ? "ON" : "OFF")));
+                }
+
                 if (config.sprintMode == ModConfig.SprintMode.TOGGLE) {
                     while (client.options.keySprint.consumeClick()) {
                         config.sprintToggled = !config.sprintToggled;

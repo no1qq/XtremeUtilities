@@ -4,9 +4,13 @@
   "package": "com.xtremeutilities.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
+    "CameraMixin",
     "DarkLoadingScreenMixin",
+    "EntityMixin",
     "FadelessReloadMixin",
     "FullbrightMixin",
+    "GameRendererMixin",
+    "MinecraftMixin",
     "PauseScreenMixin",
     "TitleScreenMixin",
     "ToggleSprintMixin"
