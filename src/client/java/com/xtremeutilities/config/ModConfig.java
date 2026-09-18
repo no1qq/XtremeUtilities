@@ -6,7 +6,8 @@ public class ModConfig {
     public boolean fullbright = false;
     public SprintMode sprintMode = SprintMode.TOGGLE;
     public boolean sprintToggled = true;
-    public boolean sprintHudEnabled = true;
+    public boolean sprintHudEnabled = false;
+    public boolean sprintNotification = true;
     public int sprintHudX = 4;
     public int sprintHudY = 4;
     public boolean smartSprint = false;

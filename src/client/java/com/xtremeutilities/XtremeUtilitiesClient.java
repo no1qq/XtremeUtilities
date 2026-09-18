@@ -146,7 +146,9 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
                                 client.player.setSprinting(false);
                             }
                         }
-                        client.player.sendOverlayMessage(Component.literal("Toggle Sprint: " + (config.sprintToggled ? "ON" : "OFF")));
+                        if (config.sprintNotification) {
+                            client.player.sendOverlayMessage(Component.literal("Toggle Sprint: " + (config.sprintToggled ? "ON" : "OFF")));
+                        }
                     }
                 }
             }

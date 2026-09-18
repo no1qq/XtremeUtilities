@@ -77,8 +77,8 @@ public class XtremeConfigScreen extends Screen {
         int centerX = this.width / 2;
         int startY = Math.max(48, this.height / 2 - 40);
         graphics.centeredText(this.font, this.title, centerX, 18, 0xFFFFFFFF);
-        graphics.centeredText(this.font, Component.literal("Toggles"), centerX - 80, startY - 14, 0xFFAAAAAA);
-        graphics.centeredText(this.font, Component.literal("Features"), centerX + 80, startY - 14, 0xFFAAAAAA);
+        graphics.centeredText(this.font, Component.literal("Features"), centerX - 80, startY - 14, 0xFFAAAAAA);
+        graphics.centeredText(this.font, Component.literal("Feature Settings"), centerX + 80, startY - 14, 0xFFAAAAAA);
     }
 
     @Override

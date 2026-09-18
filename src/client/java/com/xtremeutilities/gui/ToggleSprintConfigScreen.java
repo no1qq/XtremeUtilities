@@ -25,7 +25,7 @@ public class ToggleSprintConfigScreen extends Screen {
     @Override
     protected void init() {
         int centerX = this.width / 2;
-        int startY = Math.max(32, this.height / 2 - 76);
+        int startY = Math.max(26, this.height / 2 - 88);
         ModConfig config = ModConfig.getInstance();
 
         this.addRenderableWidget(Button.builder(
@@ -56,9 +56,18 @@ public class ToggleSprintConfigScreen extends Screen {
         ).bounds(centerX - 100, startY + 48, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
+                Component.literal("Action Bar: " + (config.sprintNotification ? "ON" : "OFF")),
+                button -> {
+                    config.sprintNotification = !config.sprintNotification;
+                    button.setMessage(Component.literal("Action Bar: " + (config.sprintNotification ? "ON" : "OFF")));
+                    ConfigManager.save();
+                }
+        ).bounds(centerX - 100, startY + 72, 200, 20).build());
+
+        this.addRenderableWidget(Button.builder(
                 Component.literal("Edit HUD Position..."),
                 button -> this.minecraft.gui.setScreen(new SprintHudEditorScreen(this))
-        ).bounds(centerX - 100, startY + 72, 200, 20).build());
+        ).bounds(centerX - 100, startY + 96, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
                 Component.literal("Smart Sprint: " + (config.smartSprint ? "ON" : "OFF")).withStyle(ChatFormatting.RED),
@@ -68,12 +77,12 @@ public class ToggleSprintConfigScreen extends Screen {
                     ConfigManager.save();
                     LOGGER.info("[XtremeUtilities] Smart Sprint toggled: {}", config.smartSprint ? "ON" : "OFF");
                 }
-        ).tooltip(Tooltip.create(Component.literal("Releases forward movement while falling toward an opponent in reach to land critical hits. This may be prohibited on some servers."))).bounds(centerX - 100, startY + 96, 200, 20).build());
+        ).tooltip(Tooltip.create(Component.literal("Releases forward movement while falling toward an opponent in reach to land critical hits. This may be prohibited on some servers."))).bounds(centerX - 100, startY + 120, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
                 CommonComponents.GUI_DONE,
                 button -> onClose()
-        ).bounds(centerX - 100, startY + 128, 200, 20).build());
+        ).bounds(centerX - 100, startY + 152, 200, 20).build());
     }
 
     @Override
