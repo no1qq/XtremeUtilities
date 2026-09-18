@@ -20,7 +20,7 @@ public class XtremeConfigScreen extends Screen {
     @Override
     protected void init() {
         int centerX = this.width / 2;
-        int startY = Math.max(32, this.height / 2 - 88);
+        int startY = Math.max(48, this.height / 2 - 40);
         ModConfig config = ModConfig.getInstance();
 
         this.addRenderableWidget(Button.builder(
@@ -30,55 +30,55 @@ public class XtremeConfigScreen extends Screen {
                     button.setMessage(Component.literal("Fullbright: " + (config.fullbright ? "ON" : "OFF")));
                     ConfigManager.save();
                 }
-        ).bounds(centerX - 100, startY, 200, 20).build());
+        ).bounds(centerX - 155, startY, 150, 20).build());
 
         this.addRenderableWidget(Button.builder(
-                Component.literal("Sprint Mode: " + config.sprintMode.name()),
-                button -> {
-                    config.sprintMode = config.sprintMode == ModConfig.SprintMode.TOGGLE ? ModConfig.SprintMode.HOLD : ModConfig.SprintMode.TOGGLE;
-                    button.setMessage(Component.literal("Sprint Mode: " + config.sprintMode.name()));
-                    ConfigManager.save();
-                }
-        ).bounds(centerX - 100, startY + 24, 200, 20).build());
-
-        this.addRenderableWidget(Button.builder(
-                Component.literal("Dark Loading Screen: " + (config.darkLoadingScreen ? "ON" : "OFF")),
+                Component.literal("Dark Screen: " + (config.darkLoadingScreen ? "ON" : "OFF")),
                 button -> {
                     config.darkLoadingScreen = !config.darkLoadingScreen;
-                    button.setMessage(Component.literal("Dark Loading Screen: " + (config.darkLoadingScreen ? "ON" : "OFF")));
+                    button.setMessage(Component.literal("Dark Screen: " + (config.darkLoadingScreen ? "ON" : "OFF")));
                     ConfigManager.save();
                 }
-        ).bounds(centerX - 100, startY + 48, 200, 20).build());
+        ).bounds(centerX - 155, startY + 24, 150, 20).build());
 
         this.addRenderableWidget(Button.builder(
-                Component.literal("Fadeless Reloading: " + (config.fadelessReload ? "ON" : "OFF")),
+                Component.literal("Fadeless: " + (config.fadelessReload ? "ON" : "OFF")),
                 button -> {
                     config.fadelessReload = !config.fadelessReload;
-                    button.setMessage(Component.literal("Fadeless Reloading: " + (config.fadelessReload ? "ON" : "OFF")));
+                    button.setMessage(Component.literal("Fadeless: " + (config.fadelessReload ? "ON" : "OFF")));
                     ConfigManager.save();
                 }
-        ).bounds(centerX - 100, startY + 72, 200, 20).build());
+        ).bounds(centerX - 155, startY + 48, 150, 20).build());
 
         this.addRenderableWidget(Button.builder(
-                Component.literal("Freelook Settings..."),
+                Component.literal("Toggle Sprint..."),
+                button -> this.minecraft.setScreenAndShow(new ToggleSprintConfigScreen(this))
+        ).bounds(centerX + 5, startY, 150, 20).build());
+
+        this.addRenderableWidget(Button.builder(
+                Component.literal("Freelook..."),
                 button -> this.minecraft.setScreenAndShow(new FreelookConfigScreen(this))
-        ).bounds(centerX - 100, startY + 96, 200, 20).build());
+        ).bounds(centerX + 5, startY + 24, 150, 20).build());
 
         this.addRenderableWidget(Button.builder(
-                Component.literal("NoHurtCam Settings..."),
+                Component.literal("NoHurtCam..."),
                 button -> this.minecraft.setScreenAndShow(new NoHurtCamConfigScreen(this))
-        ).bounds(centerX - 100, startY + 120, 200, 20).build());
+        ).bounds(centerX + 5, startY + 48, 150, 20).build());
 
         this.addRenderableWidget(Button.builder(
                 CommonComponents.GUI_DONE,
                 button -> onClose()
-        ).bounds(centerX - 100, startY + 152, 200, 20).build());
+        ).bounds(centerX - 100, startY + 80, 200, 20).build());
     }
 
     @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-        graphics.centeredText(this.font, this.title, this.width / 2, 20, 0xFFFFFF);
+        int centerX = this.width / 2;
+        int startY = Math.max(48, this.height / 2 - 40);
+        graphics.centeredText(this.font, this.title, centerX, 18, 0xFFFFFF);
+        graphics.centeredText(this.font, Component.literal("Toggles"), centerX - 80, startY - 14, 0xAAAAAA);
+        graphics.centeredText(this.font, Component.literal("Features"), centerX + 80, startY - 14, 0xAAAAAA);
     }
 
     @Override

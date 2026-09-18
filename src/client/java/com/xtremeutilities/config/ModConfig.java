@@ -6,6 +6,10 @@ public class ModConfig {
     public boolean fullbright = false;
     public SprintMode sprintMode = SprintMode.TOGGLE;
     public boolean sprintToggled = true;
+    public boolean sprintHudEnabled = true;
+    public int sprintHudX = 4;
+    public int sprintHudY = 4;
+    public boolean smartSprint = false;
     public boolean darkLoadingScreen = true;
     public boolean fadelessReload = true;
 

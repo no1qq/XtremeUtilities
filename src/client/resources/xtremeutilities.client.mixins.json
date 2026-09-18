@@ -10,6 +10,7 @@
     "FadelessReloadMixin",
     "FullbrightMixin",
     "GameRendererMixin",
+    "KeyMappingAccessor",
     "MinecraftMixin",
     "PauseScreenMixin",
     "TitleScreenMixin",

@@ -29,6 +29,10 @@ public abstract class ToggleSprintMixin {
             shouldSprint = Minecraft.getInstance().options.keySprint.isDown();
         }
 
+        if (com.xtremeutilities.sprint.SmartSprintManager.isSmartSprintActive()) {
+            shouldSprint = false;
+        }
+
         if (player.input != null && player.input.keyPresses != null) {
             Input old = player.input.keyPresses;
             player.input.keyPresses = new Input(
