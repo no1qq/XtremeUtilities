@@ -87,7 +87,7 @@ public class FreelookConfigScreen extends Screen {
     @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-        graphics.centeredText(this.font, this.title, this.width / 2, 20, 0xFFFFFF);
+        graphics.centeredText(this.font, this.title, this.width / 2, 20, 0xFFFFFFFF);
     }
 
     @Override
@@ -111,6 +111,6 @@ public class FreelookConfigScreen extends Screen {
     @Override
     public void onClose() {
         ConfigManager.save();
-        this.minecraft.setScreenAndShow(this.parent);
+        this.minecraft.gui.setScreen(this.parent);
     }
 }

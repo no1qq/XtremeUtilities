@@ -57,7 +57,7 @@ public class ToggleSprintConfigScreen extends Screen {
 
         this.addRenderableWidget(Button.builder(
                 Component.literal("Edit HUD Position..."),
-                button -> this.minecraft.setScreenAndShow(new SprintHudEditorScreen(this))
+                button -> this.minecraft.gui.setScreen(new SprintHudEditorScreen(this))
         ).bounds(centerX - 100, startY + 72, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
@@ -67,9 +67,8 @@ public class ToggleSprintConfigScreen extends Screen {
                     button.setMessage(Component.literal("Smart Sprint: " + (config.smartSprint ? "ON" : "OFF")).withStyle(ChatFormatting.RED));
                     ConfigManager.save();
                     LOGGER.info("[XtremeUtilities] Smart Sprint toggled: {}", config.smartSprint ? "ON" : "OFF");
-                    System.out.println("[XtremeUtilities] Smart Sprint toggled: " + (config.smartSprint ? "ON" : "OFF"));
                 }
-        ).tooltip(Tooltip.create(Component.literal("Releases forward movement while falling toward an opponent in reach to land critical hits. This may be prohibited on some servers or trigger anti-cheat detection."))).bounds(centerX - 100, startY + 96, 200, 20).build());
+        ).tooltip(Tooltip.create(Component.literal("Releases forward movement while falling toward an opponent in reach to land critical hits. This may be prohibited on some servers."))).bounds(centerX - 100, startY + 96, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(
                 CommonComponents.GUI_DONE,
@@ -80,7 +79,7 @@ public class ToggleSprintConfigScreen extends Screen {
     @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-        graphics.centeredText(this.font, this.title, this.width / 2, 20, 0xFFFFFF);
+        graphics.centeredText(this.font, this.title, this.width / 2, 20, 0xFFFFFFFF);
     }
 
     @Override
@@ -94,6 +93,6 @@ public class ToggleSprintConfigScreen extends Screen {
     @Override
     public void onClose() {
         ConfigManager.save();
-        this.minecraft.setScreenAndShow(this.parent);
+        this.minecraft.gui.setScreen(this.parent);
     }
 }

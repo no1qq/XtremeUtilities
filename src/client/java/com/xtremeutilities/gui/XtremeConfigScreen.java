@@ -52,17 +52,17 @@ public class XtremeConfigScreen extends Screen {
 
         this.addRenderableWidget(Button.builder(
                 Component.literal("Toggle Sprint..."),
-                button -> this.minecraft.setScreenAndShow(new ToggleSprintConfigScreen(this))
+                button -> this.minecraft.gui.setScreen(new ToggleSprintConfigScreen(this))
         ).bounds(centerX + 5, startY, 150, 20).build());
 
         this.addRenderableWidget(Button.builder(
                 Component.literal("Freelook..."),
-                button -> this.minecraft.setScreenAndShow(new FreelookConfigScreen(this))
+                button -> this.minecraft.gui.setScreen(new FreelookConfigScreen(this))
         ).bounds(centerX + 5, startY + 24, 150, 20).build());
 
         this.addRenderableWidget(Button.builder(
                 Component.literal("NoHurtCam..."),
-                button -> this.minecraft.setScreenAndShow(new NoHurtCamConfigScreen(this))
+                button -> this.minecraft.gui.setScreen(new NoHurtCamConfigScreen(this))
         ).bounds(centerX + 5, startY + 48, 150, 20).build());
 
         this.addRenderableWidget(Button.builder(
@@ -76,9 +76,9 @@ public class XtremeConfigScreen extends Screen {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         int centerX = this.width / 2;
         int startY = Math.max(48, this.height / 2 - 40);
-        graphics.centeredText(this.font, this.title, centerX, 18, 0xFFFFFF);
-        graphics.centeredText(this.font, Component.literal("Toggles"), centerX - 80, startY - 14, 0xAAAAAA);
-        graphics.centeredText(this.font, Component.literal("Features"), centerX + 80, startY - 14, 0xAAAAAA);
+        graphics.centeredText(this.font, this.title, centerX, 18, 0xFFFFFFFF);
+        graphics.centeredText(this.font, Component.literal("Toggles"), centerX - 80, startY - 14, 0xFFAAAAAA);
+        graphics.centeredText(this.font, Component.literal("Features"), centerX + 80, startY - 14, 0xFFAAAAAA);
     }
 
     @Override
@@ -92,6 +92,6 @@ public class XtremeConfigScreen extends Screen {
     @Override
     public void onClose() {
         ConfigManager.save();
-        this.minecraft.setScreenAndShow(this.parent);
+        this.minecraft.gui.setScreen(this.parent);
     }
 }

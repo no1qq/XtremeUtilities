@@ -78,7 +78,7 @@ public class XtremeUtilitiesClient implements ClientModInitializer {
                     }
 
                     if (text != null) {
-                        graphics.text(mc.font, Component.literal(text), config.sprintHudX, config.sprintHudY, 0xFFFFFF, true);
+                        graphics.text(mc.font, Component.literal(text), config.sprintHudX, config.sprintHudY, 0xFFFFFFFF, true);
                     }
                 }
         );

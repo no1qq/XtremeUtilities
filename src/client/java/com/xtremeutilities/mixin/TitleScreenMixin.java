@@ -27,7 +27,7 @@ public abstract class TitleScreenMixin extends Screen {
                 Component.literal("XtremeUtilities"),
                 button -> {
                     if (this.minecraft != null) {
-                        this.minecraft.setScreenAndShow(new XtremeConfigScreen(this));
+                        this.minecraft.gui.setScreen(new XtremeConfigScreen(this));
                     }
                 }
         ).bounds(x, y, buttonWidth, buttonHeight).build());
