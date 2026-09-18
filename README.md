@@ -12,4 +12,4 @@ a lightweight client-side utility mod for Minecraft 26.3 with fullbright, toggle
 
 ### requirements
 - Fabric Loader 0.19.0+
-- Fabric API 0.160.6+26.3
+- Fabric API 0.160.7+26.3
